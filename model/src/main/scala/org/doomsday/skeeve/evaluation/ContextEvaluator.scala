@@ -2,12 +2,12 @@ package org.doomsday.skeeve.evaluation
 
 import org.doomsday.skeeve.model._
 
-class ContextEvaluator {
-  def eval[T](node:Node[T], context:Map[String, Any]):Option[T] = node match {
+object ContextEvaluator {
+  def eval[T:Manifest](node:Node[T], context:Map[String, Any]):Option[T] = node match {
     case Const(value) => Some(value)
 
     case Var(name) => context.get(name) match {
-      case Some(value) => Some(value)
+      case Some(value:T) if manifest[T].erasure.isInstance(value)=> Some(value)
       case _ => None
     }
 
