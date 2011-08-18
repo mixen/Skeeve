@@ -8,7 +8,7 @@ case class Func2[Arg1, Arg2, +R](func:(Arg1, Arg2) => R, arg1:Node[Arg1], arg2:N
 
 case class Const[+T](value:T) extends Node[T]
 
-case class Var[+T](name:String) extends Node[T]
+case class Var[+T:Manifest](name:String) extends Node[T]
 
 object Node {
   implicit def val2Const[T](value:T) = Const(value)

@@ -27,6 +27,6 @@ class ContextEvaluatorTest extends FunSuite with ShouldMatchers {
   }
 
   test("evaluation with type mismatch") {
-    ContextEvaluator.eval(Var[List[String]]("a"), Map("a" -> List[Int](1))) should equal (None)
+    ContextEvaluator.eval(Var[Int]("a"), Map("a" -> "not int")) should equal (None)
   }
 }

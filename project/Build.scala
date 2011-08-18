@@ -26,16 +26,18 @@ object SkeeveBuild extends Build {
     scalaTest
   )
 
+  val commonSettings = buildSettings ++ Seq(libraryDependencies ++= commonDeps)
+
   lazy val skeeve = Project (
     "skeeve",
     file("."),
-    settings = buildSettings ++ Seq(libraryDependencies ++= commonDeps)
+    settings = buildSettings
   ) aggregate (model)
 
 
   lazy val model = Project (
     "model",
     file("model"),
-    settings = buildSettings
+    settings = commonSettings
   )
 }
